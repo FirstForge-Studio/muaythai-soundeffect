@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Minimal Soundboard</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 40px;
+            background: #fff;
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            max-width: 1000px;
+        }
+
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 90px;
+        }
+
+        .btn {
+            width: 80px;
+            height: 80px;
+            background: #e63946;
+            color: white;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background: #d62828;
+        }
+
+        .label {
+            margin-top: 10px;
+            font-size: 13px;
+            text-align: center;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div style="margin-top: 30px; text-align: center;">
+        <button onclick="stopAllSounds()" style="
+    background: #555;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+  ">🔇 Stop All</button>
+    </div>
+
+    <div class="container">
+        <div class="wrapper"><button class="btn" data-sound="1">Q</button>
+            <div class="label">ละครคุณธรรม</div>
+        </div>
+        <div class="wrapper"><button class="btn" data-sound="2">W</button>
+            <div class="label">eh-eh-ehhhh</div>
+        </div>
+        <div class="wrapper"><button class="btn" data-sound="3">E</button>
+            <div class="label">hawaii</div>
+        </div>
+        <div class="wrapper"><button class="btn" data-sound="4">R</button>
+            <div class="label">tokyo drift</div>
+        </div>
+        <div class="wrapper"><button class="btn" data-sound="5">T</button>
+            <div class="label">conan</div>
+        </div>
+        <div class="wrapper"><button class="btn" data-sound="6">Y</button>
+            <div class="label">งง</div>
+        </div>
+        <div class="wrapper"><button class="btn" data-sound="7">U</button>
+            <div class="label">ตบมุก1</div>
+        </div>
+        <div class="wrapper"><button class="btn" data-sound="8">I</button>
+            <div class="label">ตบมุก2</div>
+        </div>
+        <div class="wrapper"><button class="btn" data-sound="9">O</button>
+            <div class="label">ตบมุก3</div>
+        </div>
+        <div class="wrapper"><button class="btn" data-sound="10">P</button>
+            <div class="label">ตบมุก4</div>
+        </div>
+        <div class="wrapper"><button class="btn" data-sound="11">A</button>
+            <div class="label">เปิดตัว</div>
+        </div>
+        <div class="wrapper"><button class="btn" data-sound="12">S</button>
+            <div class="label">พีคตึ้ม</div>
+        </div>
+        <div class="wrapper"><button class="btn" data-sound="13">D</button>
+            <div class="label">มวย</div>
+        </div>
+        <div class="wrapper"><button class="btn" data-sound="14">F</button>
+            <div class="label">กระดิ่ง</div>
+        </div>
+        <div class="wrapper"><button class="btn" data-sound="15">G</button>
+            <div class="label">เว้ยเส้าเทียน</div>
+        </div>
+
+    </div>
+
+
+    <script>
+        const sounds = {
+            1: new Audio('sounds/ละครคุณธรรม.mp3'),
+            2: new Audio('sounds/eh-eh-ehhhh.mp3'),
+            3: new Audio('sounds/hawaifiveo.mp3'),
+            4: new Audio('sounds/tokyodrift.mp3'),
+            5: new Audio('sounds/ไขคดีโคนัน.mp3'),
+            6: new Audio('sounds/งง.mp3'),
+            7: new Audio('sounds/ตบมุก1.mp3'),
+            8: new Audio('sounds/ตบมุก2.mp3'),
+            9: new Audio('sounds/ตบมุก3.mp3'),
+            10: new Audio('sounds/ตบมุก4.mp3'),
+            11: new Audio('sounds/เปิดตัว.mp3'),
+            12: new Audio('sounds/พีคตึ้ม.mp3'),
+            13: new Audio('sounds/เพลงมวย.mp3'),
+            14: new Audio('sounds/boxing-bell.mp3'),
+            15: new Audio('sounds/เว้ยเส้าเทียน.mp3'),
+        };
+
+        // Play sound on click
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const sound = sounds[button.dataset.sound];
+                if (sound) {
+                    sound.currentTime = 0;
+                    sound.play();
+                }
+            });
+        });
+
+        // Keyboard key mapping
+        const keyMap = {
+            q: 1, w: 2, e: 3, r: 4,
+            t: 5, y: 6, u: 7, i: 8,
+            o: 9, p: 10, a: 11, s: 12,
+            d: 13, f: 14, g: 15
+        };
+
+        // Play sound on key press
+        document.addEventListener('keydown', e => {
+            const key = e.key.toLowerCase();
+            if (key in keyMap) {
+                const sound = sounds[keyMap[key]];
+                if (sound) {
+                    sound.currentTime = 0;
+                    sound.play();
+                }
+            }
+        });
+
+        function stopAllSounds() {
+            for (const key in sounds) {
+                sounds[key].pause();
+                sounds[key].currentTime = 0;
+            }
+        }
+    </script>
+
+</body>
+
+</html>
